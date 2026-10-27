@@ -16,7 +16,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
+@SpringBootTest(properties = "eureka.client.enabled=false")
 @AutoConfigureMockMvc
 class CustomerControllerTest {
 
@@ -31,6 +31,13 @@ class CustomerControllerTest {
 
     private static String uniqueEmail() {
         return UUID.randomUUID() + "@example.com";
+    }
+
+    @Test
+    void returnsConfiguredMessage() throws Exception {
+        mockMvc.perform(get("/api/config/message"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Test configuration message"));
     }
 
     @Test
