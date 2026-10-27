@@ -12,7 +12,7 @@ spring:
             locator:
               enabled: true
               lower-case-service-id: true
-              include-expression: "serviceId.toLowerCase() != 'api-gateway'"
+              include-expression: "serviceId != 'API-GATEWAY'"
           routes:
             - id: customer-service
               uri: lb://customer-service
